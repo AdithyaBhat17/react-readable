@@ -3,31 +3,29 @@ import { getAllPosts } from '../actions'
 import { connect } from 'react-redux'
 import { AtomSpinner } from 'react-epic-spinners'
 import Sidenav from './Sidenav'
-import { votePostAPI, createPostAPI, generateId } from '../utils';
 
 const App = (props) => {
-  // const [posts, setPosts] = useState([])
-  // const [categories, setCategories] = useState([])
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const posts = await generateId()
-      // const categories = await props.dispatch(getA('react'))
-      console.log(posts)
-      // await setPosts(posts)
-      // console.log(posts)
+      await props.dispatch(getAllPosts())
+      console.log(props.posts)
     }
 
     fetchPosts()
-  }, [])
+  }, [JSON.stringify(props.posts)])
 
-  // if(posts === undefined || posts.length === 0)
-  //   return <AtomSpinner />
+  const { posts } = props
+
+  if(posts.length === 0)
+    return <AtomSpinner />    
 
   return (
-    // <div>{posts && posts.map(post => post.id)}</div>
-    <div>hi
-      {/* <Sidenav categories={categories} /> */}
+    <div>
+      <div>{posts && posts.map(post => post.id)}</div>
+      <div>hi
+        {/* <Sidenav categories={categories} /> */}
+      </div>
     </div>
   )
 }
