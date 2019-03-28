@@ -1,7 +1,7 @@
 const header = 'react-readable'
 
 const devURL = 'http://localhost:3001'
-const prodURL = 'https://react-readable.now.sh'
+const prodURL = 'https://react-readable-api.now.sh'
 
 const getHeaders = {
     method: 'GET',
@@ -54,7 +54,8 @@ export const getCategoriesAPI = () => {
     .then(response => response.json())
 }
 
-export const getPostAPI = (id) => {    
+export const getPostAPI = (id) => {  
+    console.log(id)  
     return fetch(`${devURL}/posts/${id}`, getHeaders)
     .then(response => response.json())
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { getAllPosts } from '../actions'
 import { connect } from 'react-redux'
 import { AtomSpinner } from 'react-epic-spinners'
@@ -23,16 +23,18 @@ const App = (props) => {
   return (
     <div>
       <div>{posts && posts.map(post => post.id)}</div>
-      <div>hi
-        {/* <Sidenav categories={categories} /> */}
+      <div>
+        <Sidenav />
       </div>
     </div>
   )
 }
 
-const mapStateToProps = state => ({
-  posts: state.postsReducer.posts,
-  error: state.postsReducer.errorMessage
-})
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    posts: state.postsReducer
+  }
+}
 
 export default connect(mapStateToProps)(App);

@@ -1,25 +1,25 @@
 import {
     GET_POSTS,
-    GET_POSTS_FAILED
+    CREATE_POST,
+    UPDATE_POST,
+    DELETE_POST
 } from '../actions/constants'
 
-const initialState = {
-    posts: [],
-    errorMessage: null
-}
-
-export const postsReducer = (state = initialState, action) => {
+export const postsReducer = (state = [], action) => {
     switch(action.type) {
         case GET_POSTS: 
-            return {
+            return action.response
+        case CREATE_POST: 
+            return [
                 ...state,
-                posts: action.response
-            }
-        case GET_POSTS_FAILED: 
-            return {
-                ...state,
-                errorMessage: action.error
-            }
+                action.response
+            ]
+        case DELETE_POST: 
+            return state.filter(post => action.response.id !== post.id)
+        case UPDATE_POST:
+            return state.map(
+                post => post.id === action.response.id ? action.response : post
+            )
         default: 
             return state
     }
