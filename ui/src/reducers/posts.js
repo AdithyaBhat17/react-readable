@@ -2,7 +2,9 @@ import {
     GET_POSTS,
     CREATE_POST,
     UPDATE_POST,
-    DELETE_POST
+    DELETE_POST,
+    SORT_BY_VOTES,
+    SORT_BY_TIME
 } from '../actions/constants'
 
 export const postsReducer = (state = [], action) => {
@@ -20,6 +22,10 @@ export const postsReducer = (state = [], action) => {
             return state.map(
                 post => post.id === action.response.id ? action.response : post
             )
+        case SORT_BY_VOTES: 
+            return action.posts.sort((a,b) => b.voteScore - a.voteScore)
+        case SORT_BY_TIME: 
+            return action.posts.sort((a,b) => b.timestamp - a.timestamp)
         default: 
             return state
     }

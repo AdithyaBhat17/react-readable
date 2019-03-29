@@ -1,40 +1,26 @@
-import React, { useEffect } from 'react'
-import { getAllPosts } from '../actions'
-import { connect } from 'react-redux'
-import { AtomSpinner } from 'react-epic-spinners'
-import Sidenav from './Sidenav'
+import React from 'react'
+import Posts from './Posts'
+import { Switch, Route } from 'react-router-dom'
+import Categories from './Categories'
+import Navigation from './Navigation'
+import { Container } from 'react-bootstrap'
+import PostForm from './PostForm'
 
-const App = (props) => {
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      await props.dispatch(getAllPosts())
-      console.log(props.posts)
-    }
-
-    fetchPosts()
-  }, [JSON.stringify(props.posts)])
-
-  const { posts } = props
-
-  if(posts.length === 0)
-    return <AtomSpinner />    
+const App = () => {   
 
   return (
     <div>
-      <div>{posts && posts.map(post => post.id)}</div>
-      <div>
-        <Sidenav />
-      </div>
+      <Navigation />
+      <Container>
+        <Categories /> <br/>
+        <Switch>
+          <Route exact path="/" component={Posts} />
+          <Route exact path="/:category" component={Posts} />
+          <Route exact path="/posts/new" component={PostForm} />
+        </Switch>
+      </Container>
     </div>
   )
 }
 
-const mapStateToProps = state => {
-  console.log(state)
-  return {
-    posts: state.postsReducer
-  }
-}
-
-export default connect(mapStateToProps)(App);
+export default App

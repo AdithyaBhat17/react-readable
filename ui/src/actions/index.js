@@ -3,6 +3,8 @@ import {
     GET_CATEGORIES,
     CREATE_POST,
     UPDATE_POST,
+    SORT_BY_VOTES,
+    SORT_BY_TIME,
     DELETE_POST,
     GET_COMMENTS,
     ADD_COMMENT,
@@ -30,6 +32,20 @@ export const getAllPosts = (category = undefined) => {
     return dispatch => {
         getAllPostsAPI(category)
         .then(response => dispatch({type: GET_POSTS, response}))
+    }
+}
+
+export const sortByVotes = (posts) => {
+    return {
+        type: SORT_BY_VOTES,
+        posts
+    }
+}
+
+export const sortByTime = (posts) => {
+    return {
+        type: SORT_BY_TIME,
+        posts
     }
 }
 
