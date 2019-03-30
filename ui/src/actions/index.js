@@ -2,6 +2,7 @@ import {
     GET_POSTS,
     GET_CATEGORIES,
     CREATE_POST,
+    GET_POST,
     UPDATE_POST,
     SORT_BY_VOTES,
     SORT_BY_TIME,
@@ -59,7 +60,7 @@ export const getCategories = () => {
 export const getPost = (id) => {
     return dispatch => {
         getPostAPI(id)
-        .then(response => dispatch({type: UPDATE_POST, response}))
+        .then(response => dispatch({type: GET_POST, response}))
     }
 }
 
