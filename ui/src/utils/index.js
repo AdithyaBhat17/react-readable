@@ -100,7 +100,7 @@ export const getCommentAPI = (id) => {
 }
 
 export const voteCommentAPI = (id, option) => {
-    postHeaders.body = JSON.stringify(option)
+    postHeaders.body = JSON.stringify({option})
     return fetch(`${devURL}/comments/${id}`, postHeaders)
     .then(response => response.json())
 }
