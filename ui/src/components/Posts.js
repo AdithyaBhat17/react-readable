@@ -14,6 +14,11 @@ export const getDate = (timestamp) => {
     const date = moment(timestamp)._d.toString().split(' ')
     return date[0] + ', ' + date[2] + ' ' + date[1] + ' ' + date[3]
 }
+    
+const sortBy = (props, option) => {
+    console.log(option)
+    option === 'votes' ? props.sortByVotes(props.posts) : props.sortByTime(props.posts)
+}
 
 const Posts = (props) => {
     React.useEffect(() => {
@@ -29,16 +34,12 @@ const Posts = (props) => {
         props.match.params.category
     ])
 
-    const { posts } = props
+    // let { posts } = props
 
-    if(posts.length === 0)
+    if(props.posts.length === 0)
         return <AtomSpinner />
 
-    
-    
-    const sortBy = (option) => {
-        option === 'votes' ? props.sortByVotes(props.posts) : props.sortByTime(props.posts)
-    }
+    console.log(props.posts)
 
 
     return (
@@ -48,11 +49,11 @@ const Posts = (props) => {
                     Sort By
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => sortBy('votes')}>Votes</Dropdown.Item>
-                    <Dropdown.Item onClick={() => sortBy('time')}>Time</Dropdown.Item>
+                    <Dropdown.Item onClick={() => sortBy(props, 'votes')}>Votes</Dropdown.Item>
+                    <Dropdown.Item onClick={() => sortBy(props, 'time')}>Time</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown> <br/>
-            {posts && posts.map(post => (
+            {props.posts && props.posts.map(post => (
                 <div style={{
                     display: 'flex', 
                     justifyContent: 'space-between',
