@@ -1,6 +1,7 @@
 import {
     GET_POSTS,
     CREATE_POST,
+    GET_POST,
     UPDATE_POST,
     DELETE_POST,
     SORT_BY_VOTES,
@@ -10,6 +11,8 @@ import {
 export const postsReducer = (state = [], action) => {
     switch(action.type) {
         case GET_POSTS: 
+            return action.response
+        case GET_POST: 
             return action.response
         case CREATE_POST: 
             return [
