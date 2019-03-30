@@ -57,7 +57,7 @@ const PostForm = (props) => {
                     <Form.Label>Your message</Form.Label>
                     <Form.Control name="body" as="textarea" rows="3" required/>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="danger" type="submit">
                     Add this post
                 </Button>
             </Form>

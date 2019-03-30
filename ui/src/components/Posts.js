@@ -3,11 +3,22 @@ import { connect } from 'react-redux'
 import { AtomSpinner } from 'react-epic-spinners'
 import { getAllPosts, votePost, sortByVotes, sortByTime } from '../actions'
 import { ButtonGroup, Button, Dropdown } from 'react-bootstrap'
+import { Link, withRouter } from 'react-router-dom'
+import * as moment from 'moment'
+
+export const vote = async (props, id, option) => {
+    await props.votePost(id, option)
+}
+
+export const getDate = (timestamp) => {
+    const date = moment(timestamp)._d.toString().split(' ')
+    return date[0] + ', ' + date[2] + ' ' + date[1] + ' ' + date[3]
+}
 
 const Posts = (props) => {
     React.useEffect(() => {
         const fetchPosts = async () => {
-            await props.dispatch(getAllPosts(props.match.params.category))
+            await props.getAllPosts(props.match.params.category)
             console.log(props.posts)
         }
 
@@ -23,29 +34,12 @@ const Posts = (props) => {
     if(posts.length === 0)
         return <AtomSpinner />
 
-    const vote = async (id, option) => {
-        await props.dispatch(votePost(id, option))
-        if(option === 'upVote' && !document.getElementById(`up-${id}`).disabled){
-            document.getElementById(`up-${id}`).disabled = true
-            document.getElementById(`down-${id}`).disabled = false
-        }
-        else if(option === 'downVote' && document.getElementById(`up-${id}`).disabled){
-            document.getElementById(`up-${id}`).disabled = false
-            document.getElementById(`down-${id}`).disabled = true
-        }
-        else if(option === 'downVote' && !document.getElementById(`down-${id}`).disabled){
-            document.getElementById(`down-${id}`).disabled = true
-            document.getElementById(`up-${id}`).disabled = false
-        }
-        else if(option === 'upVote' && document.getElementById(`down-${id}`).disabled){
-            document.getElementById(`down-${id}`).disabled = false
-            document.getElementById(`up-${id}`).disabled = true
-        }
-    }
+    
     
     const sortBy = (option) => {
-        option === 'votes' ? props.dispatch(sortByVotes(props.posts)) : props.dispatch(sortByTime(props.posts))
+        option === 'votes' ? props.sortByVotes(props.posts) : props.sortByTime(props.posts)
     }
+
 
     return (
         <div>
@@ -70,19 +64,21 @@ const Posts = (props) => {
                 }} key={post.id}>
                     <div>
                         <h3>{post.title}</h3>
-                        <p>{post.body.substring(0, 100)}... <br/>
-                        <small>by <strong>{post.author}</strong></small></p>
+                        <p>{post.body.substring(0, 100)}... <small><Link to={`/${post.category}/${post.id}`}>read more</Link></small><br/>
+                        <small>by <strong>{post.author}</strong> on {getDate(post.timestamp)}</small></p>
                         <ButtonGroup>
-                            <Button id={`up-${post.id}`} onClick={() => vote(post.id,'upVote')} variant="outline-success">
+                            <Button onClick={() => vote(props, post.id,'upVote')} variant="outline-success">
                                 +
                             </Button>
-                            <Button id={`down-${post.id}`} onClick={() => vote(post.id,'downVote')} variant="outline-danger">
+                            <Button onClick={() => vote(props, post.id,'downVote')} variant="outline-danger">
                                 -
                             </Button>
                         </ButtonGroup> 
                         &nbsp;&nbsp;{post.voteScore}
                     </div>
                     <div>
+                        <i className="far fa-comment-alt"></i> <br/>
+                        <small style={{marginLeft: 4}}>{post.commentCount}</small>
                     </div>
                 </div>
             ))}
@@ -94,4 +90,9 @@ const mapStateToProps = state => ({
     posts: state.postsReducer
 })
 
-export default connect(mapStateToProps)(Posts)
+export default withRouter(connect(mapStateToProps, {
+    getAllPosts,
+    sortByTime,
+    sortByVotes,
+    votePost
+})(Posts))

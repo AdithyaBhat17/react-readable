@@ -10,8 +10,6 @@ const Categories = (props) => {
             await props.dispatch(getCategories())
         }
 
-        console.log(props.categories)
-
         fetchCategories()        
     }, [JSON.stringify(props.categories)])
 
@@ -19,13 +17,16 @@ const Categories = (props) => {
 
     return (
         <div> Categories:&nbsp;
-            {categories && categories.map((category, index) => (
-                <div style={{display: 'inline-flex'}} key={index}>
-                    <Button style={{marginRight: 10}} variant="light">
-                      <Link to={`/${category.path}`}>{category.name}</Link>
-                    </Button>
-                </div>
+            <div style={{display: 'inline-flex'}}>                
+                <Button style={{marginRight: 10}} variant="light">
+                    <Link style={{color:'#FF2F56'}} to='/'>All</Link>
+                </Button>
+                {categories && categories.map((category, index) => (                
+                <Button style={{marginRight: 10}} key={index} variant="light">
+                    <Link style={{color:'#FF2F56'}} to={`/${category.path}`}>{category.name}</Link>
+                </Button>
             ))}
+            </div>
         </div>
     )
 }
