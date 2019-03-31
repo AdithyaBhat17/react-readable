@@ -6,6 +6,7 @@ import Navigation from './Navigation'
 import { Container } from 'react-bootstrap'
 import PostForm from './PostForm'
 import Post from './Post'
+import EditForm from './EditForm'
 
 const App = () => {   
 
@@ -19,6 +20,7 @@ const App = () => {
           <Route exact path="/:category" component={Posts} />
           <Route exact path="/posts/new" component={PostForm} />
           <Route exact path="/:category/:id" component={Post} />
+          <Route exact path="/:category/:id/edit" component={EditForm} />
         </Switch>
       </Container>
     </div>

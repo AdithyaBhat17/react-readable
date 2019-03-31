@@ -1,13 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { AtomSpinner } from 'react-epic-spinners'
-import { getAllPosts, votePost, sortByVotes, sortByTime } from '../actions'
+import { getAllPosts, votePost, sortByVotes, sortByTime, deletePost } from '../actions'
 import { ButtonGroup, Button, Dropdown } from 'react-bootstrap'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter, Redirect } from 'react-router-dom'
 import * as moment from 'moment'
 
 export const vote = async (props, id, option) => {
     await props.votePost(id, option)
+}
+
+export const delete_post = (props, id) => {
+    props.deletePost(id)
 }
 
 export const getDate = (timestamp) => {
@@ -40,7 +44,6 @@ const Posts = (props) => {
         return <AtomSpinner />
 
     console.log(props.posts)
-
 
     return (
         <div>
@@ -75,11 +78,19 @@ const Posts = (props) => {
                                 -
                             </Button>
                         </ButtonGroup> 
-                        &nbsp;&nbsp;{post.voteScore}
+                        &nbsp;&nbsp;{post.voteScore} &nbsp; &nbsp;
+                        <i className="far fa-comment-alt"></i>
+                        <small style={{marginLeft: 4}}>{post.commentCount}</small>
                     </div>
                     <div>
-                        <i className="far fa-comment-alt"></i> <br/>
-                        <small style={{marginLeft: 4}}>{post.commentCount}</small>
+                        <ButtonGroup>
+                            <Button onClick={() => props.history.push(`${post.category}/${post.id}/edit`)} variant="outline-success">
+                                <i className="fa fa-edit"></i>
+                            </Button>
+                            <Button onClick={() => delete_post(props, post.id)} variant="outline-danger">
+                                <i className="fa fa-trash-alt"></i>
+                            </Button>
+                        </ButtonGroup> 
                     </div>
                 </div>
             ))}
@@ -95,5 +106,6 @@ export default withRouter(connect(mapStateToProps, {
     getAllPosts,
     sortByTime,
     sortByVotes,
-    votePost
+    votePost,
+    deletePost
 })(Posts))
