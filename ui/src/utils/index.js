@@ -1,7 +1,6 @@
 const header = 'react-readable'
 
-const devURL = 'http://localhost:3001'
-const prodURL = 'https://react-readable-api.now.sh'
+const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'htps://react-readable-api.now.sh'
 
 const getHeaders = {
     method: 'GET',
@@ -42,76 +41,76 @@ export const generateId = () => {
 
 export const getAllPostsAPI = (category = undefined) => {
     if(category !== undefined) {
-        return fetch(`${devURL}/${category}/posts`, getHeaders)
+        return fetch(`${url}/${category}/posts`, getHeaders)
         .then(response => response.json())
     }    
-    return fetch(`${devURL}/posts`, getHeaders)
+    return fetch(`${url}/posts`, getHeaders)
     .then(response => response.json())
 } 
 
 export const getCategoriesAPI = () => {
-    return fetch(`${devURL}/categories`, getHeaders)
+    return fetch(`${url}/categories`, getHeaders)
     .then(response => response.json())
 }
 
 export const getPostAPI = (id) => {  
     console.log(id)  
-    return fetch(`${devURL}/posts/${id}`, getHeaders)
+    return fetch(`${url}/posts/${id}`, getHeaders)
     .then(response => response.json())
 }
 
 export const createPostAPI = (body) => {
     postHeaders.body = JSON.stringify(body)
-    return fetch(`${devURL}/posts`, postHeaders)
+    return fetch(`${url}/posts`, postHeaders)
     .then(response => response.json())
 }
 
 export const votePostAPI = (id, option) => {
     postHeaders.body = JSON.stringify({option})
-    return fetch(`${devURL}/posts/${id}`, postHeaders)
+    return fetch(`${url}/posts/${id}`, postHeaders)
     .then(response => response.json())
 }
 
 export const editPostAPI = (id, body) => {
     putHeaders.body = JSON.stringify(body)
-    return fetch(`${devURL}/posts/${id}`, putHeaders)
+    return fetch(`${url}/posts/${id}`, putHeaders)
     .then(response => response.json())
 }
 
 export const deletePostAPI = (id) => {
-    return fetch(`${devURL}/posts/${id}`, deleteHeaders)
+    return fetch(`${url}/posts/${id}`, deleteHeaders)
     .then(response => response.json())
 }
 
 export const getCommentsAPI = (id) => {
-    return fetch(`${devURL}/posts/${id}/comments`, getHeaders)
+    return fetch(`${url}/posts/${id}/comments`, getHeaders)
     .then(response => response.json())
 }
 
 export const addCommentAPI = (body) => {
     postHeaders.body = JSON.stringify(body)
-    return fetch(`${devURL}/comments`, postHeaders)
+    return fetch(`${url}/comments`, postHeaders)
     .then(response => response.json())
 }
 
 export const getCommentAPI = (id) => {
-    return fetch(`${devURL}/comments/${id}`, getHeaders)
+    return fetch(`${url}/comments/${id}`, getHeaders)
     .then(response => response.json())
 }
 
 export const voteCommentAPI = (id, option) => {
     postHeaders.body = JSON.stringify({option})
-    return fetch(`${devURL}/comments/${id}`, postHeaders)
+    return fetch(`${url}/comments/${id}`, postHeaders)
     .then(response => response.json())
 }
 
 export const updateCommentAPI = (id, body) => {
     putHeaders.body = JSON.stringify(body)
-    return fetch(`${devURL}/comments/${id}`, putHeaders)
+    return fetch(`${url}/comments/${id}`, putHeaders)
     .then(response => response.json())
 }
 
 export const deleteCommentAPI = (id) => {
-    return fetch(`${devURL}/comments/${id}`, deleteHeaders)
+    return fetch(`${url}/comments/${id}`, deleteHeaders)
     .then(response => response.json())
 }
