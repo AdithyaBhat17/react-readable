@@ -8,10 +8,7 @@ const EditForm = (props) => {
         const init = async () => {
             await props.dispatch(getCategories())
             props.posts.length ===0 && await props.dispatch(getAllPosts())
-            console.log(props.posts)
         }
-
-        console.log(props.categories)
 
         init()        
     }, [JSON.stringify(props.categories), JSON.stringify(props.posts)])
@@ -53,7 +50,7 @@ const EditForm = (props) => {
                         <Form.Label>Your message</Form.Label>
                         <Form.Control name="body" as="textarea" rows="3" defaultValue={post.body} required/>
                     </Form.Group>
-                    <Button variant="danger" type="submit">
+                    <Button style={{backgroundColor: '#f7444e', border: 'none'}} type="submit">
                         Edit this post
                     </Button>
                 </Form>

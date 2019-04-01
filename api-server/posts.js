@@ -6,7 +6,7 @@ const defaultData = {
   "8xf0y6ziyjabvozdd253nd": {
     id: '8xf0y6ziyjabvozdd253nd',
     timestamp: 1467166872634,
-    title: 'Udacity is the best place to learn React',
+    title: 'React is Bae!',
     body: 'Everyone says so after all.',
     author: 'thingtwo',
     category: 'react',

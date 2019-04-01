@@ -10,8 +10,6 @@ const PostForm = (props) => {
             await props.dispatch(getCategories())
         }
 
-        console.log(props.categories)
-
         fetchCategories()        
     }, [JSON.stringify(props.categories)])
 
@@ -57,7 +55,7 @@ const PostForm = (props) => {
                     <Form.Label>Your message</Form.Label>
                     <Form.Control name="body" as="textarea" rows="3" required/>
                 </Form.Group>
-                <Button variant="danger" type="submit">
+                <Button style={{backgroundColor: '#f7444e', border: 'none'}} type="submit">
                     Add this post
                 </Button>
             </Form>

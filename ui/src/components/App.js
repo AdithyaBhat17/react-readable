@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <div>
-      <Navigation />
+      <Navigation /> <br/>
       <Container>
         <Categories /> <br/>
         <Switch>

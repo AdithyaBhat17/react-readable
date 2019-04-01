@@ -1,14 +1,30 @@
+/* f7444e -red, f7f8f3 -white, 78bcc4 -blue, 002c3e -black  */
+
+@font-face {
+  src: url('./assets/SFProDisplay-Black.ttf');
+  font-family: sf;
+  font-weight: bold;
+}
+
+@font-face {
+  src: url('./assets/SFProDisplay-Regular.ttf');
+  font-family: sf;
+  font-weight: normal;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: sf;
+  background-color: #f7f8f3;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+h1 {
+  font-weight: bold;
+}
+
+.navbar-brand {
+  color: #fff !important;
 }

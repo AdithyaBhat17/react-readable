@@ -16,14 +16,14 @@ const Categories = (props) => {
     const { categories } = props
 
     return (
-        <div> Categories:&nbsp;
+        <div> Categories:&nbsp; &nbsp;
             <div style={{display: 'inline-flex'}}>                
-                <Button style={{marginRight: 10}} variant="light">
-                    <Link style={{color:'#FF2F56'}} to='/'>All</Link>
-                </Button>
+                <Button style={{marginRight: 10, backgroundColor: '#78bcc4', border: 'none'}}>
+                    <Link style={{color:'#f7f8f3'}} to='/'>All</Link>
+                </Button> &nbsp; 
                 {categories && categories.map((category, index) => (                
-                <Button style={{marginRight: 10}} key={index} variant="light">
-                    <Link style={{color:'#FF2F56'}} to={`/${category.path}`}>{category.name}</Link>
+                <Button style={{marginRight: 10, backgroundColor: '#78bcc4', border: 'none'}} key={index}>
+                    <Link style={{color:'#f7f8f3'}} to={`/${category.path}`}>{category.name}</Link>
                 </Button>
             ))}
             </div>

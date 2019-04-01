@@ -1,6 +1,6 @@
 const header = 'react-readable'
 
-const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'htps://react-readable-api.now.sh'
+const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://react-readable-api.now.sh'
 
 const getHeaders = {
     method: 'GET',
