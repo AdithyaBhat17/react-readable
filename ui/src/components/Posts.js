@@ -18,15 +18,14 @@ export const getDate = (timestamp) => {
     const date = moment(timestamp)._d.toString().split(' ')
     return date[0] + ', ' + date[2] + ' ' + date[1] + ' ' + date[3]
 }
-    
-const sortBy = (props, option) => {
-    option === 'votes' ? props.sortByVotes(props.posts) : props.sortByTime(props.posts)
-}
 
 const Posts = (props) => {
+    const [postsArray, setPostsArray] = React.useState([])
     React.useEffect(() => {
         const fetchPosts = async () => {
             await props.getAllPosts(props.match.params.category)
+            setPostsArray(props.posts)
+            console.log(postsArray)
         }
 
         fetchPosts()
@@ -35,6 +34,11 @@ const Posts = (props) => {
         JSON.stringify(props.posts),
         props.match.params.category
     ])
+
+    const sortBy = (option) => {
+        let sortedPosts = postsArray.slice()
+        option === 'votes' ? props.sortByVotes(sortedPosts) : props.sortByTime(sortedPosts)
+    }
 
     if(props.posts.length === 0)
         return <AtomSpinner style={{margin: '30vh auto'}}/>
@@ -46,8 +50,8 @@ const Posts = (props) => {
                     Sort By
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => sortBy(props, 'votes')}>Votes</Dropdown.Item>
-                    <Dropdown.Item onClick={() => sortBy(props, 'time')}>Time</Dropdown.Item>
+                    <Dropdown.Item onClick={() => sortBy('votes')}>Votes</Dropdown.Item>
+                    <Dropdown.Item onClick={() => sortBy('time')}>Time</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown> <br/>
             {props.posts && props.posts.map(post => (
