@@ -21,10 +21,11 @@ export const getDate = (timestamp) => {
 
 const Posts = (props) => {
     const [postsArray, setPostsArray] = React.useState([])
+    const [applySort, setApplySort] = React.useState(false)
     React.useEffect(() => {
         const fetchPosts = async () => {
-            await props.getAllPosts(props.match.params.category)
-            setPostsArray(props.posts)
+            !applySort && await props.getAllPosts(props.match.params.category)
+            await setPostsArray(props.posts)
             console.log(postsArray)
         }
 
@@ -38,6 +39,7 @@ const Posts = (props) => {
     const sortBy = (option) => {
         let sortedPosts = postsArray.slice()
         option === 'votes' ? props.sortByVotes(sortedPosts) : props.sortByTime(sortedPosts)
+        setApplySort(true)
     }
 
     if(props.posts.length === 0)
