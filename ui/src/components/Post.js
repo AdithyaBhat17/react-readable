@@ -93,7 +93,7 @@ const Post = (props) => {
                     </div>
                     <div>
                         <ButtonGroup>
-                            <Button onClick={() => props.history.push(`/${post.id}/edit`)} 
+                            <Button onClick={() => props.history.push(`/${post.category}/${post.id}/edit`)} 
                              style={{backgroundColor: '#78bcc4', border: 'none'}}>
                                 <i className="fa fa-edit"></i>
                             </Button>
