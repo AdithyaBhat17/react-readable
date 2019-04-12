@@ -7,7 +7,7 @@ const EditForm = (props) => {
     React.useEffect(() => {
         const init = async () => {
             await props.dispatch(getCategories())
-            props.posts.length ===0 && await props.dispatch(getAllPosts())
+            props.posts.length === 0 && await props.dispatch(getAllPosts())
         }
 
         init()        
